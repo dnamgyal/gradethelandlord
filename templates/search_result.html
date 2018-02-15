@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+<h2>Your search results</h2>
+{% endblock %}
+
+{% block content %}
+        <p>You searched for: <strong>{{ query }}</strong></p>
+        {% if landlords %}
+            <p>Found {{ landlords|length }} landlord{{ landlords|pluralize }}.</p>
+                {% for landlord in landlords %}
+                <h3><a href="{% url 'landlord_detail' landlord.id %}">{{ landlord.name }}</a></h3>
+                <h5>{%if landlord.review_set.count > 0 %}{{ landlord.review_set.count }} reviews{% else %} No rating {% endif %}</h5>
+                {% endfor %}
+        {% else %}
+            <p>No landlords matched your search criteria.</p>
+        {% endif %}
+{% endblock %}

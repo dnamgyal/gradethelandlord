@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<nav aria-label="breadcrumb" role="navigation">
+<ol class="breadcrumb my-4">
+  <li class="breadcrumb-item active" aria-current="page">Landlords</li>
+</ol>
+</nav>
+<div class="row">
+<div class= "col-md-6">
+  {% for landlord in landlords %}
+  <a href="{% url 'landlord_detail' landlord.id %}"><h5>{{landlord.name }}</h5></a>
+  {% endfor %}
+</div>
+<div class= "col-md-6">
+  <h5>Don't see your landlord?</h5>
+  <form action = "{% url 'add_landlord'%}" method="POST" class="form" novalidate>
+  {% csrf_token %}
+  {% include 'includes/form.html' %}
+  <button type="submit" class="btn btn-block btn-primary">ADD MY LANDLORD</button>
+</form>
+</div>
+</div>
+{% endblock %}

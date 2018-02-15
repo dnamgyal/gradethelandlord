@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<nav aria-label="breadcrumb" role="navigation">
+  <ol class="breadcrumb my-4">
+    <li class="breadcrumb-item"><a href="{% url 'landlord_list' %}">Landlords</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{ landlord.name }}</li>
+  </ol>
+</nav>
+<h2>{{ landlord.name }} {%if landlord.review_set.count > 0 %}{{ landlord.review_set.count }} reviews {% else %} No rating {% endif %}
+<a href="{% url 'add_review' landlord.id %}" class="btn btn-lg btn-dark" role="button">Add Review</a></h2>
+  {% if landlord.review_set.all %}
+      {% for review in landlord.review_set.all %}
+      <div class="card">
+        <div class="card-block">
+          <div class="container">
+            <h5 class="card-title"><a href="{% url 'landlord_detail' review.landlord.id %}">{{review.landlord}}</a></h5>
+            <h6 class="card-subtitle">{{review.address}}<br></h6>
+            <div class="row">
+              <div class="col-md-3">
+                <p>Rated {{review.overall_rating}}/5 by <a href="{% url 'user_review_list' review.user_name %}" >{{ review.user_name }}</a><br>
+                  Would Recommend? {{review.rent_again}}<br>
+                  Published on {{review.pub_date}}</p>
+                </div>
+                <div class="col-md-4">
+                  <strong>Apartment Condition:</strong> {{review.apartment_condition}}/5<br>
+                  <strong>Move in Condition:</strong> {{review.move_in_condition}}/5<br>
+                  <strong>Maintenance Efficiency:</strong> {{review.maintenance_efficiency}}/5<br>
+                </div>
+                <div class="col-md-4">
+                  <strong>Communication:</strong> {{review.communication_with_your_landlord}}/5<br>
+                  <strong>Helpfulness:</strong> {{review.landlord_helpfulness}}/5<br>
+                  <strong>Treatment:</strong> {{review.treatment_by_your_landlord}}/5<br>
+                </div>
+              </div>
+              <div class="row">
+                <div class="offset-md-3 col-md-8">
+                  <p><strong>Comments:</strong> {{review.comment}}</p><br>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+    <p>No reviews for this landlord yet</p>
+    {% endif %}
+<hr>
+
+  {% endblock %}
