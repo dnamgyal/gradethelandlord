@@ -66,8 +66,7 @@ def add_review(request, landlord_id):
 
 @login_required
 def add_landlord(request):
-    landlord_list = Landlord.objects.order_by('-name')
-    count = Landlord.objects.all().count() + 1
+    landlords = Landlord.objects.all()
     form = AddLandlordForm(request.POST)
     if form.is_valid():
         l = Landlord()
@@ -76,8 +75,7 @@ def add_landlord(request):
         return HttpResponseRedirect(reverse('landlord_list'))
     else:
         form = AddLandlordForm()
-    landlord = get_object_or_404(Landlord, pk=count)
-    return render(request, 'landlord_detail.html', {'landlord': landlord, 'form': form})
+    return render(request, 'landlord_list.html', {'landlords': landlords, 'form': form})
 
 
 

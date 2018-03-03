@@ -141,7 +141,7 @@ EMAIL_HOST_PASSWORD = "Chemi!2#"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
-DEFAULT_FROM_EMAIL = 'Grade The Landlord <gradethelandlordsu@gmail.com>'
+DEFAULT_FROM_EMAIL = 'Grade The Landlord <noreply@gradethelandlord.com>'
 ADMINS = (
     ('GTL', 'gradethelandlordsu@gmail.com'),
 )
