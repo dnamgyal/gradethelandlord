@@ -7,60 +7,45 @@
     <li class="breadcrumb-item active" aria-current="page">{{ landlord.name }}</li>
   </ol>
 </nav>
-<div class="row">
-<div class="col xs-3 col-sm-3">
-<div class="card ">
-  <img class="card-img-top" src="..." alt="Card image cap">
-      <div class="card-body bg-light">
-        <h5 class="card-title ">Landlord info</h5>
-        <p class="card-text">Address:</p>
-        <p class="card-text">Phone:</p>
-        <p class="card-text">Email:</p>
-        <a href="{% url 'add_review' landlord.id %}" class="btn btn-lg btn-primary" role="button" class="card-link">Add your review</a>
-      </div>
-</div>
-</div>
-<div class="col xs-9 col-sm-9">
-  <h3><strong>{{ landlord.name }} </strong></h3>
-  <h7>"Lorem ipsum dolor sit amet, consstrud exercitation ullamcodo ce llit anim id est laborum."</h7>
-  <h4><span class="badge badge-primary">{{ landlord.review_set.count }}</span> reviews</h4>
-  <hr>
-  <h4>Latest Reviews</h4>
+<h2>{{ landlord.name }} {%if landlord.review_set.count > 0 %}{{ landlord.review_set.count }} reviews {% else %} No rating {% endif %}
+<a href="{% url 'add_review' landlord.id %}" class="btn btn-lg btn-dark" role="button">Add Review</a></h2>
   {% if landlord.review_set.all %}
       {% for review in landlord.review_set.all %}
       <div class="card">
+        <div class="card-block">
           <div class="container">
-            <h5 class="card-title">{{review.address}}</h5>
+            <h5 class="card-title"><a href="{% url 'landlord_detail' review.landlord.id %}">{{review.landlord}}</a></h5>
+            <h6 class="card-subtitle">{{review.address}}<br></h6>
             <div class="row">
-              <div class="col-xs col-sm">
+              <div class="col-md-3">
                 <p>Rated {{review.overall_rating}}/5 by <a href="{% url 'user_review_list' review.user_name %}" >{{ review.user_name }}</a><br>
                   Would Recommend? {{review.rent_again}}<br>
                   Published on {{review.pub_date}}</p>
                 </div>
-                <div class="col-xs col-sm">
+                <div class="col-md-4">
                   <strong>Apartment Condition:</strong> {{review.apartment_condition}}/5<br>
                   <strong>Move in Condition:</strong> {{review.move_in_condition}}/5<br>
                   <strong>Maintenance Efficiency:</strong> {{review.maintenance_efficiency}}/5<br>
                 </div>
-                <div class="col xs col-sm">
+                <div class="col-md-4">
                   <strong>Communication:</strong> {{review.communication_with_your_landlord}}/5<br>
                   <strong>Helpfulness:</strong> {{review.landlord_helpfulness}}/5<br>
                   <strong>Treatment:</strong> {{review.treatment_by_your_landlord}}/5<br>
                 </div>
               </div>
               <div class="row">
-                <div class="col-xs col-sm">
+                <div class="offset-md-3 col-md-8">
                   <p><strong>Comments:</strong> {{review.comment}}</p><br>
                 </div>
               </div>
             </div>
+
+          </div>
         </div>
       {% endfor %}
     {% else %}
     <p>No reviews for this landlord yet</p>
     {% endif %}
-</div>
-</div>
-
+<hr>
 
   {% endblock %}

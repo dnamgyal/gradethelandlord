@@ -35,18 +35,17 @@ class Review(models.Model):
         pub_date = models.DateField('date published')
 
         landlord = models.ForeignKey(Landlord)
-        address = models.CharField(max_length=200, blank=False, null=True)
-        length_of_stay = models.CharField(max_length=20, choices=STAY, blank=False, null=True)
+        address = models.CharField(max_length=200, blank=False, default="")
+        length_of_stay = models.CharField(max_length=20, choices=STAY, blank=False, default="1")
 
-        move_in_condition = models.CharField(max_length=5, choices=RATING_CHOICES, blank=False, null=True)
-        apartment_condition = models.CharField(max_length=5, choices=RATING_CHOICES, blank=False, null=True)
-        maintenance_efficiency = models.CharField(max_length=5, choices=RATING_CHOICES, blank=False, null=True)
+        move_in_condition = models.CharField(max_length=5, choices=RATING_CHOICES, blank=False, default="1")
+        apartment_condition = models.CharField(max_length=5, choices=RATING_CHOICES, blank=False, default="1")
+        maintenance_efficiency = models.CharField(max_length=5, choices=RATING_CHOICES, blank=False, default="1")
 
-        treatment_by_your_landlord = models.CharField(max_length=5, choices=RATING_CHOICES, blank=False, null=True)
-        communication_with_your_landlord = models.CharField(max_length=5, choices=RATING_CHOICES, blank=False, null=True)
-        landlord_helpfulness = models.CharField(max_length=5, choices=RATING_CHOICES, blank=False, null=True)
+        treatment_by_your_landlord = models.CharField(max_length=5, choices=RATING_CHOICES, blank=False, default="1")
+        communication_with_your_landlord = models.CharField(max_length=5, choices=RATING_CHOICES, blank=False, default="1")
+        landlord_helpfulness = models.CharField(max_length=5, choices=RATING_CHOICES, blank=False, default="1")
 
-
-        overall_rating = models.CharField(max_length=5, choices=RATING_CHOICES, blank=False, null=True)
-        rent_again = models.CharField(choices=YES_NO, max_length=5, blank=False, null=True)
+        overall_rating = models.CharField(max_length=5, choices=RATING_CHOICES, blank=False, default="1")
+        rent_again = models.CharField(choices=YES_NO, max_length=5, blank=False, default="1")
         comment = models.CharField(max_length=1000, blank=True, null=True)
