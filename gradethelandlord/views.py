@@ -11,10 +11,11 @@ def home(request):
     return render(request, 'home.html')
 
 def landlord_list(request):
-    landlords = Landlord.objects.all()
+    landlords = Landlord.objects.all().order_by('name')
     form = AddLandlordForm()
     return render(request, 'landlord_list.html', {'landlords':landlords, 'form': form})
 
+@login_required
 def landlord_detail(request, landlord_id):
     landlord = get_object_or_404(Landlord, pk=landlord_id)
     form = ReviewForm()
@@ -53,7 +54,7 @@ def add_review(request, landlord_id):
         review.landlord_helpfulness = form.cleaned_data['landlord_helpfulness']
         review.overall_rating = form.cleaned_data['overall_rating']
         review.rent_again = form.cleaned_data['rent_again']
-        review.comment = form.cleaned_data['comment']
+        review.additional_comments = form.cleaned_data['additional_comments']
         review.pub_date = datetime.datetime.now()
         review.save()
         # Always return an HttpResponseRedirect after successfully dealing

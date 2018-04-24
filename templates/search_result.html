@@ -2,18 +2,38 @@
 
 
 {% block title %}
-<h2>Your search results</h2>
+Your search result
 {% endblock %}
 
 {% block content %}
-        <p>You searched for: <strong>{{ query }}</strong></p>
         {% if landlords %}
-            <p>Found {{ landlords|length }} landlord{{ landlords|pluralize }}.</p>
+        <nav aria-label="breadcrumb" role="navigation">
+        <ol class="breadcrumb my-4">
+          <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Search results</li>
+        </ol>
+        </nav>
+        <p>You searched for "<strong>{{ query }}</strong>" found {{ landlords|length }} landlord{{ landlords|pluralize }}.</p>
                 {% for landlord in landlords %}
-                <h3><a href="{% url 'landlord_detail' landlord.id %}">{{ landlord.name }}</a></h3>
-                <h5>{%if landlord.review_set.count > 0 %}{{ landlord.review_set.count }} reviews{% else %} No rating {% endif %}</h5>
+                <h5><a href="{% url 'landlord_detail' landlord.id %}">{{ landlord.name }}</a></h5>
+                <!--<h5>{%if landlord.review_set.count > 0 %}{{ landlord.review_set.count }} reviews{% else %} No rating {% endif %}</h5>-->
                 {% endfor %}
         {% else %}
-            <p>No landlords matched your search criteria.</p>
+        <br><br>
+        <h1 class="text-center">For students, By students</h1>
+        <h2 class="text-center">Find your perfect home away from home!</h2>
+          <div class="container">
+            <div class="form-group form-control-lg">
+              <form action="{% url 'search' %}" method="GET">
+                  <div class="row align-middle">
+                    <div class="col-sm-10"><input class="form-control" type="text" placeholder="SEARCH FOR YOUR LANDLORD BY NAME" name="q"></div>
+                  <div class="col-md-2"><button type="submit" class="btn btn-primary">LOOK UP</button></div>
+                </div>
+              </form>
+              <p>No landlords matched your search criteria. </p>
+            </div>
+            <a href="{% url 'landlord_list' %}"><button type="button" class="btn btn-lg btn-primary btn-block">VIEW ALL LANDLORDS</button></a>
+            <!--<a href="{% url 'review_list' %}"><button type="button" class="btn btn-lg btn-primary btn-block">VIEW ALL REVIEWS</button></a>-->
+        </div>
         {% endif %}
 {% endblock %}

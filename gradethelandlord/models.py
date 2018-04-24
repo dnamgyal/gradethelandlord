@@ -13,12 +13,29 @@ class Landlord(models.Model):
 
 class Review(models.Model):
         RATING_CHOICES = (
-        ('1', '1'),
-        ('2', '2'),
-        ('3', '3'),
-        ('4', '4'),
-        ('5', '5'),
+        ('A', 'A'),
+        ('B', 'B'),
+        ('C', 'C'),
+        ('D', 'D'),
+        ('F', 'F'),
         )
+
+        SATISFACTORY = (
+        ('Very dissatisfied', 'Very dissatisfied'),
+        ('Somewhat dissatisfied', 'Somewhat dissatisfied'),
+        ('Neither satisfied nor dissatisfied', 'Neither satisfied nor dissatisfied'),
+        ('Somewhat satisfied', 'Somewhat satisfied'),
+        ('Very satisfied', 'Very satisfied'),
+        )
+
+        HELPFUL = (
+        ('Not at all helpful', 'Not at all helpful'),
+        ('Not so helpful', 'Not so helpful'),
+        ('Somewhat helpful', 'Somewhat helpful'),
+        ('Very helpful', 'Very helpful'),
+        ('Extremely helpful', 'Extremely helpful'),
+        )
+
         YES_NO = (
         ('Yes', 'Yes'),
         ('No', 'No'),)
@@ -27,8 +44,16 @@ class Review(models.Model):
         ('Less than 6 months', 'Less than 6 months'),
         ('6 months', '6 months'),
         ('10 months', '10 months'),
-        ('1 year', '1 year'),
-        ('2 plus years', '2 plus years'),
+        ('12 months', '12 months'),
+        ('More than a year', 'More than a year'),
+        )
+
+        AGREE = (
+        ('Strongly disagree', 'Strongly disagree'),
+        ('Disagree', 'Disagree'),
+        ('Neutral', 'Neutral'),
+        ('Agree', 'Agree'),
+        ('Strongly agree', 'Strongly agree'),
         )
 
         user_name = models.CharField(max_length=100)
@@ -36,16 +61,16 @@ class Review(models.Model):
 
         landlord = models.ForeignKey(Landlord)
         address = models.CharField(max_length=200, blank=False, default="")
-        length_of_stay = models.CharField(max_length=20, choices=STAY, blank=False, default="1")
+        length_of_stay = models.CharField(max_length=20, choices=STAY, blank=False)
 
-        move_in_condition = models.CharField(max_length=5, choices=RATING_CHOICES, blank=False, default="1")
-        apartment_condition = models.CharField(max_length=5, choices=RATING_CHOICES, blank=False, default="1")
-        maintenance_efficiency = models.CharField(max_length=5, choices=RATING_CHOICES, blank=False, default="1")
+        move_in_condition = models.CharField(max_length=5, choices=SATISFACTORY, blank=False, default="1")
+        apartment_condition = models.CharField(max_length=5, choices=SATISFACTORY, blank=False, default="1")
+        maintenance_efficiency = models.CharField(max_length=5, choices=SATISFACTORY, blank=False, default="1")
 
-        treatment_by_your_landlord = models.CharField(max_length=5, choices=RATING_CHOICES, blank=False, default="1")
-        communication_with_your_landlord = models.CharField(max_length=5, choices=RATING_CHOICES, blank=False, default="1")
-        landlord_helpfulness = models.CharField(max_length=5, choices=RATING_CHOICES, blank=False, default="1")
+        treatment_by_your_landlord = models.CharField(max_length=5, choices=SATISFACTORY, blank=False, default="1")
+        communication_with_your_landlord = models.CharField(max_length=5, choices=SATISFACTORY, blank=False, default="1")
+        landlord_helpfulness = models.CharField(max_length=5, choices=HELPFUL, blank=False, default="1")
 
         overall_rating = models.CharField(max_length=5, choices=RATING_CHOICES, blank=False, default="1")
         rent_again = models.CharField(choices=YES_NO, max_length=5, blank=False, default="1")
-        comment = models.CharField(max_length=1000, blank=True, null=True)
+        additional_comments = models.CharField(max_length=1000, blank=True, null=True)

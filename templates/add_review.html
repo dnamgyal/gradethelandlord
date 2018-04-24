@@ -12,10 +12,10 @@
 </nav>
 <h3>Add your Review!</h3>
 <div class="col-md-8">
-  <form action = "{% url 'add_review' landlord.id %}" method="POST" class="form" novalidate>
+  <form action = "{% url 'add_review' landlord.id %}" method="post" class="form" novalidate>
     {% csrf_token %}
     {% include 'includes/form.html' %}
-    <button type="submit" class="btn btn-success">Post</button>
+    <button type="submit" class="btn btn-success btn-block">Post</button>
   </form>
 </div>
 {% endblock %}

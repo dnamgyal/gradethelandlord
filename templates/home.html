@@ -8,12 +8,12 @@
     <div class="form-group form-control-lg">
       <form action="{% url 'search' %}" method="GET">
           <div class="row align-middle">
-            <div class="col-md-10"><input class="form-control" type="text" placeholder="SEARCH FOR YOUR LANDLORD BY NAME" name="q"></div>
-          <div class="col-md-1"><button type="submit" class="btn btn-primary">LOOK UP</button></div>
+            <div class="col-sm-10"><input class="form-control" type="text" placeholder="SEARCH FOR YOUR LANDLORD BY NAME" name="q"></div>
+          <div class="col-md-2"><button type="submit" class="btn btn-primary">LOOK UP</button></div>
         </div>
       </form>
     </div>
     <a href="{% url 'landlord_list' %}"><button type="button" class="btn btn-lg btn-primary btn-block">VIEW ALL LANDLORDS</button></a>
-    <a href="{% url 'review_list' %}"><button type="button" class="btn btn-lg btn-primary btn-block">VIEW ALL REVIEWS</button></a>
+    <!--<a href="{% url 'review_list' %}"><button type="button" class="btn btn-lg btn-primary btn-block">VIEW ALL REVIEWS</button></a>-->
 </div>
 {% endblock %}
